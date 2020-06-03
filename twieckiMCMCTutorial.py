@@ -6,7 +6,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-from scipy.stats import norm
+from scipy.stats import norm, uniform, expon
 
 
 sns.set_style('white')
@@ -27,12 +27,15 @@ def calc_posterior_analytical(data, x, mu_0, sigma_0):
     n = len(data)
     mu_post = (mu_0 / sigma_0**2 + data.sum() / sigma**2) / (1. / sigma_0**2 + n / sigma**2)
     sigma_post = (1. / sigma_0**2 + n / sigma**2)**-1
-    return norm(mu_post, np.sqrt(sigma_post)).pdf(x) #The probability density function of the data for
+    print(mu_post, np.sqrt(sigma_post))
+    return norm(mu_post, np.sqrt(sigma_post)).pdf(x)
+    #return norm(mu_post, np.sqrt(sigma_post)).pdf(x) #The probability density function of the data for
                                                      #a normal distribution of mu equal to mu_post
                                                      #and sigma equal to np.sqrt(sigma_post).
                                                      #For every mu value, x, what is the
                                                      #probability it shows up in the previously defined
                                                      #normal distribution, norm(mu_post, np.sqrt(sigma_post)).
+                                                     # the value of the pdf at point x for a given mu, sigma
 
 ax = plt.subplot()
 x = np.linspace(-1, 1, 500) #500 numbers between -1 and 1, meant to represent the mu values of our data.
